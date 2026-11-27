@@ -3,44 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Калькулятор ТТК | Шагимарданов</title>
-<script src="https://telegram.org"></script>
+<title>Калькулятор ТТК v2 | Шагимарданов</title>
 <style>
   :root {
-    --bg: var(--tg-theme-bg-color, #f4f5f7);
-    --card: var(--tg-theme-secondary-bg-color, #ffffff);
-    --text: var(--tg-theme-text-color, #1a1c1e);
-    --hint: var(--tg-theme-hint-color, #6c727f);
-    --btn: var(--tg-theme-button-color, #d9534f);
-    --btn-text: var(--tg-theme-button-text-color, #ffffff);
-    --border: rgba(128,128,128,0.2);
-    --accent-soft: rgba(217, 83, 79, 0.12);
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #111827;
+    --hint: #6b7280;
+    --btn: #d9534f;
+    --btn-dark: #b52b27;
+    --btn-text: #ffffff;
+    --border: #e5e7eb;
+    --accent-soft: #fdf2f2;
+    --green: #16a34a;
   }
   * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-  body { margin: 0; padding: 12px 12px 90px 12px; background: var(--bg); color: var(--text); font-size: 14px; }
-  h1 { font-size: 18px; margin: 0; font-weight: 700; }
-  .subtitle { font-size: 12px; color: var(--hint); margin-bottom: 12px; }
-  .card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--border); }
-  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--hint); letter-spacing: 0.5px; margin-bottom: 10px; }
-  label { display: block; font-size: 11px; color: var(--hint); margin-bottom: 4px; }
-  input, select { width: 100%; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; outline: none; }
-  input:focus { border-color: var(--btn); }
+  body { margin: 0; padding: 12px 12px 95px 12px; background: var(--bg); color: var(--text); font-size: 14px; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  h1 { font-size: 18px; margin: 0; font-weight: 800; color: var(--text); }
+  .badge { background: var(--btn); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+  .subtitle { font-size: 12px; color: var(--hint); margin-top: 2px; }
+  .card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--hint); letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  label { display: block; font-size: 11px; color: var(--hint); margin-bottom: 4px; font-weight: 500; }
+  input, select { width: 100%; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--border); background: #f9fafb; color: var(--text); font-size: 14px; outline: none; transition: 0.15s; }
+  input:focus, select:focus { border-color: var(--btn); background: #fff; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
-  .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); padding: 4px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); }
-  .tab { padding: 10px; text-align: center; border-radius: 9px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; color: var(--hint); }
-  .tab.active { background: var(--card); color: var(--text); box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
-  .ing-item { border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: var(--bg); position: relative; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; background: #e5e7eb; padding: 3px; border-radius: 12px; margin-bottom: 12px; }
+  .tab { padding: 9px; text-align: center; border-radius: 9px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--hint); }
+  .tab.active { background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .preset-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 10px; }
+  .preset-btn { white-space: nowrap; background: var(--accent-soft); color: var(--btn); border: 1px solid rgba(217,83,79,0.25); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .ing-item { border: 1px solid var(--border); border-radius: 12px; padding: 11px; margin-bottom: 10px; background: #fafafa; }
   .ing-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .btn-del { background: rgba(220,53,69,0.15); color: #dc3545; border: none; border-radius: 8px; padding: 8px 11px; font-weight: bold; cursor: pointer; }
+  .btn-del { background: #fee2e2; color: #dc2626; border: none; border-radius: 8px; padding: 8px 11px; font-weight: bold; cursor: pointer; }
   .res-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); text-align: center; }
   .res-box span { display: block; font-size: 10px; color: var(--hint); }
   .res-box strong { font-size: 13px; color: var(--text); }
   .res-box.highlight strong { color: var(--btn); }
-  .btn { width: 100%; padding: 13px; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn { width: 100%; padding: 12px; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   .btn-primary { background: var(--btn); color: var(--btn-text); }
   .btn-secondary { background: var(--accent-soft); color: var(--btn); }
-  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline { background: #fff; border: 1px solid var(--border); color: var(--text); }
+  .btn-green { background: var(--green); color: #fff; }
   .summary-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .summary-row:last-child { border-bottom: none; }
   .nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 8px 0; z-index: 100; }
@@ -49,24 +55,32 @@
   .nav-item div { font-size: 18px; margin-bottom: 2px; }
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
   .modal-content { background: var(--card); border-radius: 16px; padding: 18px; width: 100%; max-width: 420px; max-height: 85vh; overflow-y: auto; }
-  pre { background: var(--bg); padding: 12px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; border: 1px solid var(--border); line-height: 1.45; }
+  pre { background: #f9fafb; padding: 12px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; border: 1px solid var(--border); line-height: 1.45; }
   .hidden { display: none; }
-  .saved-card { border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: var(--bg); }
+  .saved-card { border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fafafa; }
 </style>
 </head>
 <body>
 
-<div style="display:flex; justify-content:space-between; align-items:center;">
+<div class="header">
   <div>
     <h1>Калькулятор ТТК</h1>
-    <div class="subtitle">Шагимарданов • расчёт закладки и сырья</div>
+    <div class="subtitle">Шагимарданов • технолог пищевого производства</div>
   </div>
+  <span class="badge">v 2.0</span>
 </div>
 
 <!-- ВКЛАДКА 1: КАЛЬКУЛЯТОР -->
 <div id="view-calc">
   <div class="card">
-    <div class="section-title">Параметры партии</div>
+    <div class="section-title">Быстрая загрузка шаблона (Пресеты)</div>
+    <div class="preset-scroll">
+      <button class="preset-btn" onclick="loadPreset('tomat')">🍅 Паштет томаты (90г)</button>
+      <button class="preset-btn" onclick="loadPreset('classic')">🥩 Паштет классик (170г)</button>
+      <button class="preset-btn" onclick="loadPreset('crab')">🦀 Риет с крабом (90г)</button>
+      <button class="preset-btn" onclick="loadPreset('empty')">📄 Пустой бланк</button>
+    </div>
+
     <label>Название блюда / ТТК</label>
     <input type="text" id="dishName" value="Паштет с вялеными томатами (90 г)">
     
@@ -93,7 +107,7 @@
 
   <div class="card" id="box-direct">
     <label>Плановое количество банок / порций (шт)</label>
-    <input type="number" id="targetCount" value="55" oninput="recalc()">
+    <input type="number" id="targetCount" value="75" oninput="recalc()">
   </div>
 
   <div class="card hidden" id="box-reverse">
@@ -101,13 +115,14 @@
     <select id="anchorSelect" onchange="recalc()"></select>
     <div style="margin-top:10px;">
       <label>Фактический вес этого ПФ на весах (г)</label>
-      <input type="number" id="anchorWeight" value="2255" oninput="recalc()">
+      <input type="number" id="anchorWeight" value="3075" oninput="recalc()">
     </div>
   </div>
 
   <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <div class="section-title" style="margin:0;">Состав (ПФ на базовую партию)</div>
+    <div class="section-title">
+      <span>Состав (ПФ на базовую партию)</span>
+      <span id="ingCounter" style="color:var(--btn);">0 поз.</span>
     </div>
     <div id="ingredientsList"></div>
     <button class="btn btn-secondary" onclick="addIngredient()">+ Добавить ингредиент</button>
@@ -115,7 +130,7 @@
 
   <div class="card">
     <div class="section-title">Итоги партии</div>
-    <div class="summary-row"><span>Выход готовых штук:</span><strong id="resCount">0 шт</strong></div>
+    <div class="summary-row"><span>Выход готовых штук:</span><strong id="resCount" style="color:var(--btn);">0 шт</strong></div>
     <div class="summary-row"><span>Остаток массы сверх целых:</span><strong id="resRemainder">0 г</strong></div>
     <div class="summary-row"><span>Общий вес закладки (ПФ):</span><strong id="resTotalPF">0 кг</strong></div>
     <div class="summary-row"><span>Закупка со склада (Брутто):</span><strong id="resTotalBrutto">0 кг</strong></div>
@@ -134,45 +149,22 @@
   </div>
 </div>
 
-<!-- ВКЛАДКА 3: СПРАВОЧНИК -->
+<!-- ВКЛАДКА 3: СПРАВОЧНИК И УСЛУГИ -->
 <div id="view-ref" class="hidden">
   <div class="card">
-    <div class="section-title">Стандартные коэффициенты потерь (практика цеха)</div>
-    <div class="summary-row"><span>Печень куриная (дефр. + варка)</span><strong>25% – 35%</strong></div>
+    <div class="section-title">Калькулятор КБЖУ для этикетки (ТР ТС 022/2011)</div>
+    <div class="grid-3">
+      <div><label>Белки (г)</label><input type="number" step="0.1" id="kbjuP" value="11.5" oninput="calcKBJU()"></div>
+      <div><label>Жиры (г)</label><input type="number" step="0.1" id="kbjuF" value="18.2" oninput="calcKBJU()"></div>
+      <div><label>Углеводы (г)</label><input type="number" step="0.1" id="kbjuC" value="3.4" oninput="calcKBJU()"></div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="summary-row"><span>На 100 г продукта:</span><strong id="kbju100">223 ккал / 927 кДж</strong></div>
+      <div class="summary-row"><span>На 1 банку (<span id="kbjuPortionLbl">90</span> г):</span><strong id="kbjuPortion">201 ккал / 834 кДж</strong></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Коэффициенты потерь сырья (практика цеха)</div>
+    <div class="summary-row"><span>Печень куриная (дефр. + варка)</span><strong>25% – 35.2%</strong></div>
     <div class="summary-row"><span>Лук репчатый (чистка / пассеровка)</span><strong>16% / 44.7%</strong></div>
-    <div class="summary-row"><span>Морковь (чистка / пассеровка)</span><strong>20% / 7%</strong></div>
-    <div class="summary-row"><span>Кожа куриная (дефр. + варка)</span><strong>36.8%</strong></div>
-    <div class="summary-row"><span>Потери на куттере и дозаторе</span><strong>2.5% – 3%</strong></div>
-  </div>
-</div>
-
-<!-- МОДАЛЬНОЕ ОКНО ШПАРГАЛКИ -->
-<div class="modal" id="cheatModal">
-  <div class="modal-content">
-    <div class="section-title">Шпаргалка на весы (ПФ)</div>
-    <pre id="cheatText"></pre>
-    <button class="btn btn-primary" onclick="copyCheatSheet()">Скопировать для чата цеха</button>
-    <button class="btn btn-outline" onclick="closeCheatSheet()">Закрыть</button>
-  </div>
-</div>
-
-<!-- НИЖНЯЯ НАВИГАЦИЯ -->
-<div class="nav">
-  <div class="nav-item active" id="nav-calc" onclick="switchView('calc')"><div>🧮</div>Калькулятор</div>
-  <div class="nav-item" id="nav-saved" onclick="switchView('saved')"><div>📁</div>Мои ТТК</div>
-  <div class="nav-item" id="nav-ref" onclick="switchView('ref')"><div>📖</div>Справочник</div>
-</div>
-
-<script>
-  if (window.Telegram && window.Telegram.WebApp) {
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
-  }
-
-  let currentMode = 'direct';
-  let ingredients = [
-    { name: 'Печень куриная п/ф', pf: 41.0, loss1: 0, loss2: 25, price: 240 },
-    { name: 'Лук жареный п/ф', pf: 12.6, loss1: 16, loss2: 44.7, price: 45 },
-    { name: 'Морковь жареная п/ф', pf: 8.5, loss1: 20, loss2: 7, price: 40 },
-    { name: 'Кожа куриная отварная п/ф', pf: 8.5, loss1: 0, loss2: 36.8, price: 95 },
-    { name: 'Томаты вяленые п/ф', pf: 6.0, loss1: 0, loss2: 0, price: 950 },
