@@ -17,22 +17,22 @@
     --accent-soft: rgba(217, 83, 79, 0.12);
   }
   * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-  body { margin: 0; padding: 12px 12px 85px 12px; background: var(--bg); color: var(--text); font-size: 14px; }
+  body { margin: 0; padding: 12px 12px 90px 12px; background: var(--bg); color: var(--text); font-size: 14px; }
   h1 { font-size: 18px; margin: 0; font-weight: 700; }
   .subtitle { font-size: 12px; color: var(--hint); margin-bottom: 12px; }
   .card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--border); }
   .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--hint); letter-spacing: 0.5px; margin-bottom: 10px; }
-  label { display: block; font-size: 12px; color: var(--hint); margin-bottom: 4px; }
-  input, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 15px; outline: none; }
+  label { display: block; font-size: 11px; color: var(--hint); margin-bottom: 4px; }
+  input, select { width: 100%; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; outline: none; }
   input:focus { border-color: var(--btn); }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
   .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); padding: 4px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); }
   .tab { padding: 10px; text-align: center; border-radius: 9px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; color: var(--hint); }
   .tab.active { background: var(--card); color: var(--text); box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
   .ing-item { border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: var(--bg); position: relative; }
-  .ing-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .btn-del { background: rgba(220,53,69,0.15); color: #dc3545; border: none; border-radius: 8px; padding: 6px 10px; font-weight: bold; cursor: pointer; }
+  .ing-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .btn-del { background: rgba(220,53,69,0.15); color: #dc3545; border: none; border-radius: 8px; padding: 8px 11px; font-weight: bold; cursor: pointer; }
   .res-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); text-align: center; }
   .res-box span { display: block; font-size: 10px; color: var(--hint); }
   .res-box strong { font-size: 13px; color: var(--text); }
@@ -41,7 +41,7 @@
   .btn-primary { background: var(--btn); color: var(--btn-text); }
   .btn-secondary { background: var(--accent-soft); color: var(--btn); }
   .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-  .summary-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .summary-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .summary-row:last-child { border-bottom: none; }
   .nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 8px 0; z-index: 100; }
   .nav-item { text-align: center; font-size: 11px; color: var(--hint); cursor: pointer; font-weight: 600; }
@@ -49,8 +49,9 @@
   .nav-item div { font-size: 18px; margin-bottom: 2px; }
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
   .modal-content { background: var(--card); border-radius: 16px; padding: 18px; width: 100%; max-width: 420px; max-height: 85vh; overflow-y: auto; }
-  pre { background: var(--bg); padding: 12px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; border: 1px solid var(--border); }
+  pre { background: var(--bg); padding: 12px; border-radius: 10px; white-space: pre-wrap; font-size: 13px; border: 1px solid var(--border); line-height: 1.45; }
   .hidden { display: none; }
+  .saved-card { border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: var(--bg); }
 </style>
 </head>
 <body>
@@ -76,7 +77,7 @@
       </div>
       <div>
         <label>База (шт)</label>
-        <input type="number" id="baseCount" value="5" oninput="recalc()">
+        <input type="number" id="baseCount" value="1" oninput="recalc()">
       </div>
       <div>
         <label>Потери фас. %</label>
@@ -106,7 +107,7 @@
 
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <div class="section-title" style="margin:0;">Состав (на базовую партию)</div>
+      <div class="section-title" style="margin:0;">Состав (ПФ на базовую партию)</div>
     </div>
     <div id="ingredientsList"></div>
     <button class="btn btn-secondary" onclick="addIngredient()">+ Добавить ингредиент</button>
@@ -137,11 +138,11 @@
 <div id="view-ref" class="hidden">
   <div class="card">
     <div class="section-title">Стандартные коэффициенты потерь (практика цеха)</div>
-    <div class="summary-row"><span>Печень куриная (ужарка)</span><strong>25%</strong></div>
+    <div class="summary-row"><span>Печень куриная (дефр. + варка)</span><strong>25% – 35%</strong></div>
     <div class="summary-row"><span>Лук репчатый (чистка / пассеровка)</span><strong>16% / 44.7%</strong></div>
     <div class="summary-row"><span>Морковь (чистка / пассеровка)</span><strong>20% / 7%</strong></div>
-    <div class="summary-row"><span>Кожа куриная (уварка)</span><strong>25%</strong></div>
-    <div class="summary-row"><span>Потери на куттере и дозаторе</span><strong>3%</strong></div>
+    <div class="summary-row"><span>Кожа куриная (дефр. + варка)</span><strong>36.8%</strong></div>
+    <div class="summary-row"><span>Потери на куттере и дозаторе</span><strong>2.5% – 3%</strong></div>
   </div>
 </div>
 
@@ -150,15 +151,16 @@
   <div class="modal-content">
     <div class="section-title">Шпаргалка на весы (ПФ)</div>
     <pre id="cheatText"></pre>
-    <button class="btn btn-primary" onclick="copyCheat()">Скопировать для чата цеха</button>
-    <button class="btn btn-outline" onclick="closeModal()">Закрыть</button>
+    <button class="btn btn-primary" onclick="copyCheatSheet()">Скопировать для чата цеха</button>
+    <button class="btn btn-outline" onclick="closeCheatSheet()">Закрыть</button>
   </div>
 </div>
 
+<!-- НИЖНЯЯ НАВИГАЦИЯ -->
 <div class="nav">
-  <div class="nav-item active" onclick="switchView('calc', this)"><div>🧮</div>Калькулятор</div>
-  <div class="nav-item" onclick="switchView('saved', this)"><div>📁</div>Мои ТТК</div>
-  <div class="nav-item" onclick="switchView('ref', this)"><div>📖</div>Справочник</div>
+  <div class="nav-item active" id="nav-calc" onclick="switchView('calc')"><div>🧮</div>Калькулятор</div>
+  <div class="nav-item" id="nav-saved" onclick="switchView('saved')"><div>📁</div>Мои ТТК</div>
+  <div class="nav-item" id="nav-ref" onclick="switchView('ref')"><div>📖</div>Справочник</div>
 </div>
 
 <script>
@@ -167,13 +169,10 @@
     window.Telegram.WebApp.expand();
   }
 
-  let mode = 'direct';
+  let currentMode = 'direct';
   let ingredients = [
-    { name: 'Печень жареная п/ф', basePf: 205, cleanLoss: 0, cookLoss: 25, price: 240 },
-    { name: 'Лук жареный п/ф', basePf: 63, cleanLoss: 16, cookLoss: 44.7, price: 45 },
-    { name: 'Морковь жареная п/ф', basePf: 42, cleanLoss: 20, cookLoss: 7, price: 40 },
-    { name: 'Кожа куриная отварная', basePf: 42, cleanLoss: 0, cookLoss: 25, price: 90 },
-    { name: 'Томаты вяленые', basePf: 30, cleanLoss: 0, cookLoss: 0, price: 850 },
-    { name: 'Бульон куриный', basePf: 42, cleanLoss: 0, cookLoss: 0, price: 15 },
-    { name: 'Масло сливочное', basePf: 30, cleanLoss: 0, cookLoss: 0, price: 780 },
-    { name: 'Крахмал кукурузный', basePf: 3, cleanLoss: 0, cookLoss: 0, price: 140 },
+    { name: 'Печень куриная п/ф', pf: 41.0, loss1: 0, loss2: 25, price: 240 },
+    { name: 'Лук жареный п/ф', pf: 12.6, loss1: 16, loss2: 44.7, price: 45 },
+    { name: 'Морковь жареная п/ф', pf: 8.5, loss1: 20, loss2: 7, price: 40 },
+    { name: 'Кожа куриная отварная п/ф', pf: 8.5, loss1: 0, loss2: 36.8, price: 95 },
+    { name: 'Томаты вяленые п/ф', pf: 6.0, loss1: 0, loss2: 0, price: 950 },
